@@ -1,0 +1,9 @@
+.transition{
+    transition: all 0.3s ease-in-out;
+}
+.hover:hover{
+    color: #80b504;
+}
+.cursor{
+    cursor: pointer;
+}
