@@ -9,6 +9,7 @@ import Link from '@mui/material/Link';
 import style from "./TopNavbar.module.css"
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { Link as RouterLink} from 'react-router-dom';
 
 export default function TopNavbar() {
   return (
@@ -27,13 +28,10 @@ export default function TopNavbar() {
                 <Typography component={"span"}>English</Typography>
                 <KeyboardArrowDownIcon />
               </Box>
-              <Box sx={{display:"flex", alignItems:"center", gap:"5px"}} className={`${style.transition} ${style.hover} ${style.cursor}`}>
-                <Typography component={"span"}>USD</Typography>
-                <KeyboardArrowDownIcon />
-              </Box>
-              <Box sx={{display:"flex", alignItems:"center", gap:"5px"}} className={`${style.transition} ${style.hover} ${style.cursor}`}>
-                <Typography component={"span"}>Setting</Typography>
-                <KeyboardArrowDownIcon />
+              <Box sx={{display:"flex", alignItems:"center", gap:"20px"}}>
+                <Link component={RouterLink} to={"/auth/Signup"} underline='none' color='#Fff' className={`${style.transition} ${style.hover} ${style.cursor}`}>Signup</Link>
+                <Typography component={"span"} variant='body2'>|</Typography>
+                <Link component={RouterLink} to={"/auth/login"} underline='none' color='#Fff' className={`${style.transition} ${style.hover} ${style.cursor}`}>Login</Link>
               </Box>
             </Box>
         </Toolbar>
