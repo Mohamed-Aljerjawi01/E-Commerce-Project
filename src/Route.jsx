@@ -8,8 +8,10 @@ import WishList from './pages/WishListPage/WishList';
 import Cart from './pages/CartPage/Cart';
 import Products from './pages/ProductsPage/Products';
 import AuthLayout from "./Layouts/AuthLayout";
-import Login from './pages/LoginPage/Login';
-import Signup from "./pages/SignupPage/Signup";
+import Login from './pages/AuthPages/LoginPage/Login';
+import Signup from "./pages/AuthPages/SignupPage/Signup";
+import SendCode from "./pages/AuthPages/SendCodePage/SendCode";
+import ResetPassword from "./pages/AuthPages/ResetPasswordPage/ResetPassword";
 
 const router = createBrowserRouter([
     {
@@ -55,8 +57,16 @@ const router = createBrowserRouter([
                 element:<Login />
             },
             {
-                path:"Signup",
+                path:"signup",
                 element:<Signup />
+            },
+            {
+                path:"sendcode",
+                element:<SendCode />
+            },
+            {
+                path:"resetpassword",
+                element:<ResetPassword />
             }
         ]
     }

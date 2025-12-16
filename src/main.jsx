@@ -6,10 +6,12 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import CssBaseline from '@mui/material/CssBaseline';
+import { ToastContainer } from 'react-toastify';
 
 createRoot(document.getElementById('root')).render(
     <>
         <CssBaseline />
+        <ToastContainer />
         <App />
     </>
 )

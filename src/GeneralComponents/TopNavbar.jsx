@@ -29,7 +29,7 @@ export default function TopNavbar() {
                 <KeyboardArrowDownIcon />
               </Box>
               <Box sx={{display:"flex", alignItems:"center", gap:"20px"}}>
-                <Link component={RouterLink} to={"/auth/Signup"} underline='none' color='#Fff' className={`${style.transition} ${style.hover} ${style.cursor}`}>Signup</Link>
+                <Link component={RouterLink} to={"/auth/signup"} underline='none' color='#Fff' className={`${style.transition} ${style.hover} ${style.cursor}`}>Sign Up</Link>
                 <Typography component={"span"} variant='body2'>|</Typography>
                 <Link component={RouterLink} to={"/auth/login"} underline='none' color='#Fff' className={`${style.transition} ${style.hover} ${style.cursor}`}>Login</Link>
               </Box>
