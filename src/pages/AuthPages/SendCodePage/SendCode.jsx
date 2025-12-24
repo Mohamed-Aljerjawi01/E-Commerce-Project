@@ -1,10 +1,8 @@
-import React from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import bgColor  from '../../../assets/media/imges/bgColor.png';
-import axios from 'Axios';
 import { useForm } from 'react-hook-form'
 import { Slide, toast } from 'react-toastify'
 import { yupResolver } from '@hookform/resolvers/yup'
