@@ -4,26 +4,27 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import bgColor  from '../../../assets/media/imges/bgColor.png';
-import schema from '../../Validations/ResetPasswordValidations'
+import { ResetPasswordValidationSchema } from '../../Validations/Schems'
 import axios from 'Axios';
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import CircularProgress from '@mui/material/CircularProgress'
 import { Slide, toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import axiosInstance from '../../../API/axiosInstance'
 
 function ResetPassword() {
   const navigate = useNavigate();
 
   const {register,handleSubmit, formState:{errors,isSubmitting}} = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(ResetPasswordValidationSchema),
     mode:"onBlur"
   });
 
   async function submit(data){
-    // console.log(data);
+    console.log(data);
     try{
-        const response = await axios.patch("https://knowledgeshop.runasp.net/api/Auth/Account/ResetPassword", data);
+        const response = await axiosInstance.patch("/Auth/Account/ResetPassword", data);
         console.log(response);
         if(response.status == 200){
         toast.success(response.data.message, {
@@ -42,7 +43,7 @@ function ResetPassword() {
         }
     }catch(err){
         console.log(err);
-        toast.error(err.message, {
+        toast.error(err.response.data.message, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,

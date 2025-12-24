@@ -1,7 +1,7 @@
 // رابط ال API المستخدم
 // https://knowledgeshop.runasp.net/api/Auth/Account/Register
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 import  Box  from '@mui/material/Box';
 import bgColor  from '../../../assets/media/imges/bgColor.png';
 import Typography from '@mui/material/Typography';
@@ -12,20 +12,21 @@ import axios from 'Axios';
 import { Slide, toast } from 'react-toastify';
 import { yupResolver } from "@hookform/resolvers/yup";
 import CircularProgress from '@mui/material/CircularProgress';
-import schema from './../../Validations/SignupValidations';
+import { SignupValidationSchema } from '../../Validations/Schems';
+import axiosInstance from '../../../API/axiosInstance';
 
 function Signup() {
   const [serverErrors , setServerErrors] = useState([]);
   
   const {register,handleSubmit,formState:{errors,isSubmitting}} = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(SignupValidationSchema),
     mode: "onBlur"
   });
 
   async function submit(data){
-    // console.log(data);
+    console.log(data);
     try{
-      const response = await axios.post(`https://knowledgeshop.runasp.net/api/Auth/Account/Register`,data);
+      const response = await axiosInstance.post(`/Auth/Account/Register`,data);
       console.log(response);
 
       // بعد أن يتم الطلب بنجاح سيتم إرسال رسالة للإيميل الذي تم إدخاله في الفورم
@@ -34,7 +35,7 @@ function Signup() {
       // سيتم اعتماد بياناتك في قاعدة البيانات ومن ثم يمكنك عمل تسجيل دخول للموقع بحسب 
       // البيانات المطلوبة وهي الإيميل وكلمة المرور المسجلين
 
-      if(response.status == 201){
+      if(response.status == 200){
         toast.success(response.data.message, {
         position: "top-center",
         autoClose: 5000,
@@ -47,13 +48,13 @@ function Signup() {
         transition: Slide,
         });
 
-        setServerErrors("")
+        setServerErrors([]);
       }
     }catch(err){
-        // console.log(err);
+        console.log(err);
         setServerErrors(err.response.data.errors);
+    }
   }
-}
 
   return <>
     {
@@ -69,7 +70,7 @@ function Signup() {
         theme: "colored",
         transition: Slide,
         })
-        setServerErrors("");
+        setServerErrors([]);
       })
       : null
     }

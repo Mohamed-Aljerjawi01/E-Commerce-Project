@@ -8,22 +8,23 @@ import axios from 'Axios';
 import { useForm } from 'react-hook-form'
 import { Slide, toast } from 'react-toastify'
 import { yupResolver } from '@hookform/resolvers/yup'
-import schema from '../../Validations/SendCodeValidations';
+import { SendCodeValidationSchema } from '../../Validations/Schems'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../../API/axiosInstance'
 
 function SendCode() {
   const navigate = useNavigate();
   
   const {register,handleSubmit, formState:{errors,isSubmitting}} = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(SendCodeValidationSchema),
     mode:"onBlur"
   });
 
   async function submit(data){
     console.log(data);
     try{
-        const response = await axios.post("https://knowledgeshop.runasp.net/api/Auth/Account/SendCode", data)
+        const response = await axiosInstance.post("/Auth/Account/SendCode", data)
         console.log(response);
         if(response.status == 200){
         toast.success(response.data.message, {

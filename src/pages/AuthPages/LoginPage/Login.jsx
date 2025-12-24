@@ -11,21 +11,22 @@ import  { useForm }  from 'react-hook-form';
 import axios from 'Axios';
 import { Slide, toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
-import schema from '../../Validations/LoginValidations';
+import { LoginValidationSchema } from './../../Validations/Schems';
 import CircularProgress from '@mui/material/CircularProgress';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from 'react-router-dom';
+import axiosInstance from '../../../API/axiosInstance';
 
 function Login() {
   const {register,handleSubmit,formState:{errors,isSubmitting}} = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(LoginValidationSchema),
     mode:"onBlur"
   });
 
   async function submit(data){
-    // console.log(data);
+    console.log(data);
     try{
-      const response = await axios.post(`https://knowledgeshop.runasp.net/api/Auth/Account/Login`,data);
+      const response = await axiosInstance.post(`/Auth/Account/Login`,data);
       console.log(response);
 
       // بعد قيامي بعملية signup

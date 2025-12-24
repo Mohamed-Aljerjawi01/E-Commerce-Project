@@ -1,9 +1,6 @@
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import logo from "../assets/media/imges/logo.svg"
 import Link from '@mui/material/Link';
@@ -25,7 +22,6 @@ export default function Navbar() {
             <Box sx={{ display: "flex", justifyContent: "space-between" }} gap={4}>
               <Link component={RouterLink} to={"/home"} underline='none' color='#000'>Home</Link>
               <Link component={RouterLink} to={"/products"} underline='none' color='#000'>Products</Link>
-              <Link component={RouterLink} to={"/Catagories"} underline='none' color='#000'>Categories</Link>
               <Link component={RouterLink} to={"/about"} underline='none' color='#000'>About</Link>
               <Link component={RouterLink} to={"/contact"} underline='none' color='#000'>Contact</Link>
             </Box>
