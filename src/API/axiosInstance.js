@@ -1,4 +1,4 @@
-import axios from 'Axios';
+import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: "https://knowledgeshop.runasp.net/api",
