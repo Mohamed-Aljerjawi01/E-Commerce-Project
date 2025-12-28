@@ -9,12 +9,16 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import RedeemIcon from '@mui/icons-material/Redeem';
 import SearchIcon from '@mui/icons-material/Search';
 import style from "./Navbar.module.css"
+import { useContext } from 'react';
+import { AuthContext } from './../Context/MyContext';
 
 export default function Navbar() {
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar sx={{ justifyContent: "space-between" , backgroundColor: "#fff" }}>
+  const {accessToken} = useContext(AuthContext);
+
+  return <>
+    <Box sx={{ flexGrow: 1}}>
+      <AppBar position="static" sx={{boxShadow:"none"}}>
+        <Toolbar sx={{ justifyContent: "space-between" , backgroundColor: "#fff"}}>
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "80px" }} >
             <Box>
               <Link component={RouterLink} to={"/home"}><img src={logo} alt="logo" /></Link>
@@ -22,6 +26,7 @@ export default function Navbar() {
             <Box sx={{ display: "flex", justifyContent: "space-between" }} gap={4}>
               <Link component={RouterLink} to={"/home"} underline='none' color='#000'>Home</Link>
               <Link component={RouterLink} to={"/products"} underline='none' color='#000'>Products</Link>
+              <Link component={RouterLink} to={"/productDetails"} underline='none' color='#000'>Product Details</Link>
               <Link component={RouterLink} to={"/about"} underline='none' color='#000'>About</Link>
               <Link component={RouterLink} to={"/contact"} underline='none' color='#000'>Contact</Link>
             </Box>
@@ -33,12 +38,20 @@ export default function Navbar() {
                 <button className={`${style.outlineNone} ${style.borderNone} ${style.borderRadius} ${style.backgroundColor} ${style.cursor}`}><SearchIcon sx={{color:"#fff"}}/></button>
               </form>
             </Box>
-            <Link component={RouterLink} to={"/wishlist"} className={`${style.FavoriteBorderIcon} ${style.FavoriteBorderIconAfter}`}>
-              <FavoriteBorderIcon sx={{color:"#000"}}/>
-            </Link>
-            <Link component={RouterLink}  to={"/cart"} className={`${style.RedeemIcon} ${style.RedeemIconAfter}`}>
-              <RedeemIcon sx={{color:"#000"}}/>
-            </Link>
+
+            {accessToken != null ?
+            <>
+              <Link component={RouterLink} to={"/wishlist"} className={`${style.FavoriteBorderIcon} ${style.FavoriteBorderIconAfter}`}>
+                <FavoriteBorderIcon sx={{color:"#000"}}/>
+              </Link>
+              <Link component={RouterLink} to={"/cart"} className={`${style.RedeemIcon} ${style.RedeemIconAfter}`}>
+                <RedeemIcon sx={{color:"#000"}}/>
+              </Link> 
+            </>
+            :
+            null
+            }
+
             <Box>
               <MenuIcon sx={{color:"#000"}}/>
             </Box>
@@ -46,5 +59,5 @@ export default function Navbar() {
         </Toolbar>
       </AppBar>
     </Box>
-  );
+  </>
 }

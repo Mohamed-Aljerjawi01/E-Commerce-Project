@@ -11,6 +11,7 @@ import Login from './pages/AuthPages/LoginPage/Login';
 import Signup from "./pages/AuthPages/SignupPage/Signup";
 import SendCode from "./pages/AuthPages/SendCodePage/SendCode";
 import ResetPassword from "./pages/AuthPages/ResetPasswordPage/ResetPassword";
+import ProductDetails from './pages/ProductDetailsPage/ProductDetails';
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             {
                 path:"products",
                 element:<Products />
+            },
+            {
+                path:"productDetails",
+                element:<ProductDetails />
             },
             {
                 path:"about",

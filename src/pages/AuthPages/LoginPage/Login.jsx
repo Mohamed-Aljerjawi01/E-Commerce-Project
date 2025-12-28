@@ -12,10 +12,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginValidationSchema } from './../../Validations/Schems';
 import CircularProgress from '@mui/material/CircularProgress';
 import Link from '@mui/material/Link';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../../API/axiosInstance';
+import { useContext } from 'react';
+import { AuthContext } from '../../../Context/MyContext';
 
 function Login() {
+  const navigate = useNavigate();
+
+  const {setAccessToken, saveAccessTokenInLocalStorage} = useContext(AuthContext);
+
   const {register,handleSubmit,formState:{errors,isSubmitting}} = useForm({
     resolver: yupResolver(LoginValidationSchema),
     mode:"onBlur"
@@ -77,7 +83,9 @@ function Login() {
       // الخاصة بالعميل في المتصفح الخاص به يتم ذلك عن طريق 
       // تخزينها في localStorage
       // كما في الكود التالي
-      // localStorage.setItem('token',response.data.accessToken);
+      // localStorage.setItem('accessToken',response.data.accessToken);
+      // طبعا وجود ال accessToken
+      // في متصفح المستخدم أو العميل يعني أنه مسجل الدخول على ذلك الموقع حاليا
       
       // الفرق بين accessToken , refreshToken
       // هو أن accessToken 
@@ -148,7 +156,10 @@ function Login() {
         theme: "colored",
         transition: Slide,
         });
-        localStorage.setItem('token',response.data.accessToken);
+
+        saveAccessTokenInLocalStorage(response.data.accessToken);
+        setAccessToken(response.data.accessToken);
+        navigate('/home')
       }
     }catch(err){
         console.log(err);

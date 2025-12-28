@@ -9,11 +9,21 @@ import Link from '@mui/material/Link';
 import style from "./TopNavbar.module.css"
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Link as RouterLink} from 'react-router-dom';
+import { Link as RouterLink, useNavigate} from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from './../Context/MyContext';
 
 export default function TopNavbar() {
-  return (
-    <Box sx={{ flexGrow: 1 }}>
+  const navigate = useNavigate("");
+
+  const {accessToken,logout} = useContext(AuthContext);
+  const logoutAndNavigate = function(){
+    logout();
+    navigate("/auth/login");
+  }
+
+  return <>
+     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{backgroundColor:"#191919", boxShadow:"none"}}>
         <Toolbar sx={{justifyContent:"space-between"}}>
             <Box display={"flex"} gap={1}>
@@ -28,14 +38,22 @@ export default function TopNavbar() {
                 <Typography component={"span"}>English</Typography>
                 <KeyboardArrowDownIcon />
               </Box>
+
+              {accessToken != null ? 
+              <Box sx={{display:"flex", alignItems:"center", gap:"20px"}}>
+                <Button onClick={logoutAndNavigate} color='#Fff' className={`${style.transition} ${style.hover} ${style.cursor}`}>Logout</Button>
+              </Box>
+              :       
               <Box sx={{display:"flex", alignItems:"center", gap:"20px"}}>
                 <Link component={RouterLink} to={"/auth/signup"} underline='none' color='#Fff' className={`${style.transition} ${style.hover} ${style.cursor}`}>Sign Up</Link>
                 <Typography component={"span"} variant='body2'>|</Typography>
                 <Link component={RouterLink} to={"/auth/login"} underline='none' color='#Fff' className={`${style.transition} ${style.hover} ${style.cursor}`}>Login</Link>
               </Box>
+              }
+
             </Box>
         </Toolbar>
       </AppBar>
     </Box>
-  );
+  </>
 }

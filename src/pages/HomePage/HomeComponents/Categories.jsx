@@ -15,7 +15,7 @@ function Catagories() {
     isError ? <Typography sx={{color:"red", fontWeight:"bold", textAlign:"center"}}>Error</Typography> :
       <Grid container spacing={3}>
         {data.map((category)=>{
-          return <Grid size={{ xs: 12, sx: 6, md:4, lg:2}} key={category.id}>
+          return <Grid size={{ xs: 12, sx: 6, md:4, lg:3}} key={category.id}>
             <Box sx={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",border:"1px solid  rgba(128, 128, 128, 0.2)", padding:"30px 0", width:"220px"}}>
               <img src={category1} alt="" className={`${style.img}`}/>
               <Typography component={"a"} sx={{marginBottom:"5px", fontWeight:"bold"}}>{category.name}</Typography>
