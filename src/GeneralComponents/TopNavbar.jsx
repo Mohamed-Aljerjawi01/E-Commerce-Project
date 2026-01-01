@@ -3,8 +3,6 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Link from '@mui/material/Link';
 import style from "./TopNavbar.module.css"
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
@@ -16,11 +14,13 @@ import { AuthContext } from './../Context/MyContext';
 export default function TopNavbar() {
   const navigate = useNavigate("");
 
+{/* ********** Start Lecture Sixteen ********** */}
   const {accessToken,logout} = useContext(AuthContext);
   const logoutAndNavigate = function(){
     logout();
     navigate("/auth/login");
   }
+{/* ********** End Lecture Sixteen ********** */}
 
   return <>
      <Box sx={{ flexGrow: 1 }}>
@@ -39,6 +39,7 @@ export default function TopNavbar() {
                 <KeyboardArrowDownIcon />
               </Box>
 
+            {/* ********** Start Lecture Sixteen ********** */}
               {accessToken != null ? 
               <Box sx={{display:"flex", alignItems:"center", gap:"20px"}}>
                 <Button onClick={logoutAndNavigate} color='#Fff' className={`${style.transition} ${style.hover} ${style.cursor}`}>Logout</Button>
@@ -50,6 +51,7 @@ export default function TopNavbar() {
                 <Link component={RouterLink} to={"/auth/login"} underline='none' color='#Fff' className={`${style.transition} ${style.hover} ${style.cursor}`}>Login</Link>
               </Box>
               }
+            {/* ********** End Lecture Sixteen ********** */}
 
             </Box>
         </Toolbar>

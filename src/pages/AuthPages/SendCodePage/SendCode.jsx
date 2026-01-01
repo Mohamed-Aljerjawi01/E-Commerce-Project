@@ -4,56 +4,22 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import bgColor  from '../../../assets/media/imges/bgColor.png';
 import { useForm } from 'react-hook-form'
-import { Slide, toast } from 'react-toastify'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SendCodeValidationSchema } from '../../Validations/Schems'
 import CircularProgress from '@mui/material/CircularProgress'
-import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../../../API/axiosInstance'
+import { useSendCodeMutation } from '../../../Hooks/useMutation';
 
 function SendCode() {
-  const navigate = useNavigate();
-  
   const {register,handleSubmit, formState:{errors,isSubmitting}} = useForm({
     resolver: yupResolver(SendCodeValidationSchema),
     mode:"onBlur"
   });
 
-  async function submit(data){
-    console.log(data);
-    try{
-        const response = await axiosInstance.post("/Auth/Account/SendCode", data)
-        console.log(response);
-        if(response.status == 200){
-        toast.success(response.data.message, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Slide,
-        });
+  const {mutateAsync } = useSendCodeMutation();
 
-        localStorage.setItem("email",data.email);
-        navigate("/auth/resetpassword")
-      }
-    }catch(err){
-        console.log(err);
-        toast.error(err.response.data.message, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Slide,
-        });    
-    }
+  async function submit(data){
+    // console.log(data);
+    await mutateAsync(data);
   }
 
   return <>

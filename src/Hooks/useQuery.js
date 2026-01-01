@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../API/axiosInstance";
 
+// query 1
 export function useCategoriesQuery() {
     const getCategories = async () => {
         const response = await axiosInstance.get("/Categories");

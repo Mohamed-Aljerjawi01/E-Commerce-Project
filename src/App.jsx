@@ -11,11 +11,25 @@ function App() {
 
   return <>
     <QueryClientProvider client={queryClient}>
+      
+    {/* ********** Start Lecture Sixteen ********** */}
       <AuthContextProvider>
+    {/* ********** End Lecture Sixteen ********** */}
+
         <RouterProvider router={router} />
+
+    {/* ********** Start Lecture Sixteen ********** */}
       </AuthContextProvider>
+    {/* ********** End Lecture Sixteen ********** */}
+
     </QueryClientProvider>
   </>
 }
 
 export default App
+
+// قمنا بجعل المكون RouterProvider
+// بداخل المكون AuthContextProvider
+// وذلك لأنني أريد إرسال تلك البيانات المرجعة من الفنكشن AuthContextProvider
+// والتي هي بداخل الملف MyContext
+// لجميع المكونات الموجودة بداخل ال router

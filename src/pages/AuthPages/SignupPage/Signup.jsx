@@ -13,46 +13,25 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import CircularProgress from '@mui/material/CircularProgress';
 import { SignupValidationSchema } from '../../Validations/Schems';
 import axiosInstance from '../../../API/axiosInstance';
+import { useSignupMutation } from '../../../Hooks/useMutation';
 
 function Signup() {
-  const [serverErrors , setServerErrors] = useState([]);
-  
   const {register,handleSubmit,formState:{errors,isSubmitting}} = useForm({
     resolver: yupResolver(SignupValidationSchema),
     mode: "onBlur"
   });
 
+  const { mutateAsync , isPending , serverErrors, setServerErrors} = useSignupMutation();
+
   async function submit(data){
-    console.log(data);
-    try{
-      const response = await axiosInstance.post(`/Auth/Account/Register`,data);
-      console.log(response);
+    // console.log(data);
+    await mutateAsync(data);
 
       // بعد أن يتم الطلب بنجاح سيتم إرسال رسالة للإيميل الذي تم إدخاله في الفورم
       // تفيد بعمل comfirme للإيميل
       // وبعد الضغط على الرابط confirme 
       // سيتم اعتماد بياناتك في قاعدة البيانات ومن ثم يمكنك عمل تسجيل دخول للموقع بحسب 
       // البيانات المطلوبة وهي الإيميل وكلمة المرور المسجلين
-
-      if(response.status == 200){
-        toast.success(response.data.message, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Slide,
-        });
-
-        setServerErrors([]);
-      }
-    }catch(err){
-        console.log(err);
-        setServerErrors(err.response.data.errors);
-    }
   }
 
   return <>
@@ -82,7 +61,7 @@ function Signup() {
           <TextField label="Email" type='email' placeholder='Enter Email Please!' color='success' variant="outlined" {...register("email")} error={errors.email} helperText={errors.email?.message}/>
           <TextField label="Password" type='password' placeholder='Enter Password Please!' color='success'variant="outlined" {...register("password")} error={errors.password} helperText={errors.password?.message}/>
           <TextField label="Phone Number" type='tel' placeholder='Enter Phone-Number  Please!' color='success' variant="outlined" {...register("phoneNumber")} error={errors.phoneNumber} helperText={errors.phoneNumber?.message}/>
-          <Button type='submit' color="success" variant="contained" sx={{fontSize:'16px'}} disabled={isSubmitting}>{isSubmitting ? <CircularProgress /> : "Sign up"}</Button>
+          <Button type='submit' color="success" variant="contained" sx={{fontSize:'16px'}} disabled={isPending}>{isPending ? <CircularProgress /> : "Sign up"}</Button>
         </Box>
       </Box>
       <Box sx={{width:"50%", height:"100%", backgroundImage:`url(${bgColor}),linear-gradient(to left , green ,White)`, backgroundRepeat:"no-repeat", backgroundSize:"contain", backgroundPosition:"center"}}></Box>

@@ -13,7 +13,10 @@ import { useContext } from 'react';
 import { AuthContext } from './../Context/MyContext';
 
 export default function Navbar() {
+  
+{/* ********** Start Lecture Sixteen ********** */}
   const {accessToken} = useContext(AuthContext);
+{/* ********** End Lecture Sixteen ********** */}
 
   return <>
     <Box sx={{ flexGrow: 1}}>
@@ -39,6 +42,7 @@ export default function Navbar() {
               </form>
             </Box>
 
+          {/* ********** Start Lecture Sixteen ********** */}
             {accessToken != null ?
             <>
               <Link component={RouterLink} to={"/wishlist"} className={`${style.FavoriteBorderIcon} ${style.FavoriteBorderIconAfter}`}>
@@ -51,6 +55,7 @@ export default function Navbar() {
             :
             null
             }
+          {/* ********** End Lecture Sixteen ********** */}
 
             <Box>
               <MenuIcon sx={{color:"#000"}}/>

@@ -7,52 +7,19 @@ import { ResetPasswordValidationSchema } from '../../Validations/Schems'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import CircularProgress from '@mui/material/CircularProgress'
-import { Slide, toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
-import axiosInstance from '../../../API/axiosInstance'
+import { useResetPasswordMutation } from '../../../Hooks/useMutation';
 
 function ResetPassword() {
-  const navigate = useNavigate();
-
   const {register,handleSubmit, formState:{errors,isSubmitting}} = useForm({
     resolver: yupResolver(ResetPasswordValidationSchema),
     mode:"onBlur"
   });
 
-  async function submit(data){
-    console.log(data);
-    try{
-        const response = await axiosInstance.patch("/Auth/Account/ResetPassword", data);
-        console.log(response);
-        if(response.status == 200){
-        toast.success(response.data.message, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Slide,
-        });
+  const { mutateAsync, isPending } = useResetPasswordMutation();
 
-        navigate("/auth/login");
-        }
-    }catch(err){
-        console.log(err);
-        toast.error(err.response.data.message, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Slide,
-        }); 
-    }
+  async function submit(data){
+    // console.log(data);
+    await mutateAsync(data);
   }
 
   return <>
@@ -63,7 +30,7 @@ function ResetPassword() {
           <TextField label="Email" type='email' color='success' variant="outlined" disabled value={localStorage.getItem("email")} {...register("email")}/>
           <TextField label="Code" type='text' placeholder='Enter a Code Please!' color='success' variant="outlined" {...register("code")} error={errors.code} helperText={errors.code?.message} />
           <TextField label="New Password" type='password' placeholder='Enter New Password Please!' color='success'variant="outlined" {...register("newPassword")} error={errors.newPassword} helperText={errors.newPassword?.message} />
-          <Button type='submit' variant="contained" color="success" sx={{fontSize:'16px'}} disabled={isSubmitting}>{isSubmitting ? <CircularProgress /> : "Reset"}</Button>
+          <Button type='submit' variant="contained" color="success" sx={{fontSize:'16px'}} disabled={isPending}>{isPending ? <CircularProgress /> : "Reset"}</Button>
         </Box>
       </Box>
       <Box sx={{width:"50%", height:"100%", backgroundImage:`url(${bgColor}),linear-gradient(to left , green ,White)`, backgroundRepeat:"no-repeat", backgroundSize:"contain", backgroundPosition:"center"}}></Box>
