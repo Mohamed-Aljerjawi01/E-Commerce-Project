@@ -1,7 +1,6 @@
 import { createContext, useState } from "react";
 
-{/* ********** Start Lecture Sixteen ********** */}
-// Context 1
+// Context 1 : AuthContext
 export const AuthContext = createContext();
 export const AuthContextProvider = function({children}){
     const [accessToken,setAccessToken] = useState(localStorage.getItem("accessToken") || null);
@@ -14,5 +13,3 @@ export const AuthContextProvider = function({children}){
     }
     return <AuthContext.Provider value={{accessToken,setAccessToken,saveAccessTokenInLocalStorage,logout}}>{children}</AuthContext.Provider>
 }
-{/* ********** End Lecture Sixteen ********** */}
-   

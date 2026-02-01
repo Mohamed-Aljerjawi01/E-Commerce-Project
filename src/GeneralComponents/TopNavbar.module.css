@@ -1,9 +1,18 @@
 .transition{
-    transition: all 0.3s ease-in-out;
+    transition: all linear  0.3s ;
 }
 .hover:hover{
     color: #80b504;
 }
 .cursor{
     cursor: pointer;
+}
+.arProperties{
+    color: gray;
+    pointer-events: none;
+}
+.arDefaultProperties{
+    color: black;
+    pointer-events: auto;
+    transform: rotateX('');
 }

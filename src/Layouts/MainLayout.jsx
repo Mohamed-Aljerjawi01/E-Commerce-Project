@@ -1,13 +1,14 @@
-import React from 'react'
+import Footer from '../GeneralComponents/Footer'
 import Navbar from '../GeneralComponents/Navbar'
-import { Outlet } from 'react-router-dom'
 import TopNavbar from '../GeneralComponents/TopNavbar'
+import { Outlet } from 'react-router-dom'
 
 function MainLayout() {
   return <>
     <TopNavbar />
     <Navbar />
     <Outlet />
+    <Footer />
   </>
 }
 

@@ -28,9 +28,6 @@
 .FavoriteBorderIconAfter::after{
     content: "3";
 }
-.RedeemIconAfter::after{
-    content: "12";
-}
 .FavoriteBorderIconAfter::after , .RedeemIconAfter::after{
     color: #fff;
     position: absolute;
@@ -47,7 +44,4 @@
 }
 .dFlex{
     display: flex;
-}
-.cvvds{
-    background-color: red;
 }

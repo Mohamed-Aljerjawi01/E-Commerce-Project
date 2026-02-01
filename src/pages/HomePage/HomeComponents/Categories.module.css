@@ -1,7 +1,21 @@
-.img{
-    border: 1px dashed green;
-    padding: 10px;
+.prev , .next{
+    position: absolute;
+    top: 50%;
+    transform: translatey(-50%);
+    background-color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
-    margin-bottom: 10px;
-    background-color: rgba(128, 128, 128,0.1);
+    z-index: 10;
+    cursor: pointer;
+    border: 1px solid #80b501;
+    color: #80b501;
+}
+.prev{
+    left: -30px;
+}
+.next{
+    right: -30px;
 }

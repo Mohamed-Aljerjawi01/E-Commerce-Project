@@ -1,0 +1,46 @@
+.isActive {
+    color: #80b501 !important;
+    text-decoration: underline !important;
+    text-underline-offset: 8px !important;
+    text-decoration-color: #80b501 !important;
+    text-decoration-thickness: 2px !important;
+    position: relative !important;
+}
+
+.IconAfter::after {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: fit-content;
+    white-space: nowrap;
+    background-color: #000;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 3px;
+    border-radius: 5px;
+    visibility: hidden;
+}
+
+.prev , .next{
+    position: absolute;
+    top: 50%;
+    background-color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    z-index: 10;
+    outline: 3px solid #fff;
+    outline-offset: 5px ;
+    cursor: pointer;
+    color: #80b501;
+}
+.prev{
+    left: -30px;
+}
+.next{
+    right: -30px;
+}

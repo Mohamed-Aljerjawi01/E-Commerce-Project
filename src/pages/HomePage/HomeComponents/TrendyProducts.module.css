@@ -1,0 +1,23 @@
+.isActive {
+    color: #80b501 !important;
+    text-decoration: underline !important;
+    text-underline-offset: 8px !important;
+    text-decoration-color: #80b501 !important;
+    text-decoration-thickness: 2px !important;
+}
+
+.IconAfter::after {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: fit-content;
+    white-space: nowrap;
+    background-color: #000;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 3px;
+    border-radius: 5px;
+    visibility: hidden;
+}

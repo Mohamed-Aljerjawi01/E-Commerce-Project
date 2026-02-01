@@ -1,46 +1,74 @@
 // وهذا رابط لل API المستخدم
 // https://knowledgeshop.runasp.net/api/Auth/Account/Login
 
-import  Box  from '@mui/material/Box';
-import bgColor  from '../../../assets/media/imges/bgColor.png';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import  { useForm }  from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginValidationSchema } from './../../Validations/Schems';
 import CircularProgress from '@mui/material/CircularProgress';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from 'react-router-dom';
 import { useLoginMutation } from './../../../Hooks/useMutation';
+import { useTranslation } from 'react-i18next';
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
+import { useAuthStore } from '../../../Store/MyStore';
 
 function Login() {
-  const {register,handleSubmit,formState:{errors,isSubmitting}} = useForm({
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     resolver: yupResolver(LoginValidationSchema),
-    mode:"onBlur"
+    mode: "onBlur"
   });
 
   const { mutateAsync } = useLoginMutation();
 
-  async function submit(data){
+  async function submit(data) {
     // console.log(data);
     await mutateAsync(data);
 
-      // هنا مكان الشرح الذي بالأسفل , قمنا بوضغه بالأسفل لأنه كبير ولا يتسع لوضعه هنا
+    // هنا مكان الشرح الذي بالأسفل , قمنا بوضغه بالأسفل لأنه كبير ولا يتسع لوضعه هنا
   }
 
+  const theme = useTheme();
+  const downSm = useMediaQuery(theme.breakpoints.down('sm'));
+  const downMd = useMediaQuery(theme.breakpoints.down('md'));
+  const upSm = useMediaQuery(theme.breakpoints.up('sm'));
+  const isSm = useMediaQuery(theme.breakpoints.only('sm'));
+  const isMd = useMediaQuery(theme.breakpoints.only('md'));
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'));
+
+  const mode = useAuthStore(state=> state.mode);
+
+  const { t, i18n } = useTranslation();
+
   return <>
-    <Box sx={{width:"70%", height:"90vh",position:"absolute",top:"50%", left:"50%", translate:"-50% -50%", display:"flex", justifyContent:"center", alignItems:"center",border:"2px solid green",borderRight:"0", borderRadius:"20px", overflow:"hidden"}}>
-      <Box sx={{width:"50%",height:"100%", backgroundColor:"#fff", textAlign:"center", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:"20px"}}>
-        <Typography component={"h3"} variant='h3' color='green'>Login</Typography>
-        <Box component={"form"} onSubmit={handleSubmit(submit)} sx={{display:"flex", flexDirection:"column", gap:"10px", width:"80%"}}>
-          <TextField label="Email" type='email' placeholder='Enter Email Please!' color='success' variant="outlined" {...register("email")} error={errors.email} helperText={errors.email?.message}/>
-          <TextField label="Password" type='password' placeholder='Enter Password Please!' color='success'variant="outlined" {...register("password")} error={errors.password} helperText={errors.password?.message}/>
-          <Link component={RouterLink} to="/auth/sendcode" underline='none' color='green'>Forget Password?</Link>
-          <Button type='submit' variant="contained" color="success" sx={{fontSize:'16px'}} disabled={isSubmitting}>{isSubmitting ? <CircularProgress /> : "Login"}</Button>
+    <Box sx={{ width: "100%", minHeight: "100vh", backgroundColor: "rgba(128,128,128,0.2)", }}>
+      <Grid container sx={{ border: "3px solid #66bb6a", backgroundColor: mode==='dark'?'dark':'#fff', width: downSm ? "100%" : isSm ? "90%" : isMd ? "80%" : "70%", height: downSm ? "100vh" : "80vh", boxShadow: "0px 0px 30px gray", position: "absolute", top: "50%", left: "50%", translate: "-50% -50%", justifyContent: "space-between", alignItems: "center", borderRadius: downSm ? "0" : "20px", overflow: "hidden" }}>
+        <Box sx={{ overflowY: "auto", display: "flex", flexDirection: downSm ? "column" : "row", gap: isXs ? 7 : 1, height: "100%", width: "100%", backgroundColor:"" }}>
+          <Grid size={{ xs: 12, sm: 5, md: 6 }}>
+            <Box sx={{ height: "100%", padding: "10px 0", backgroundColor: "#66bb6a", borderTopRightRadius: downSm ? "0" : i18n.language==='en'?"30%":"0", borderTopLeftRadius: downSm?'0':i18n.language==='en'?'0':'30%', borderBottomRightRadius: i18n.language==='en'?"30%":upSm?'0':'30%', borderBottomLeftRadius: downSm ? "30%" : i18n.language==='en'?"0":"30%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: downSm ? "5px" : "13px" }}>
+              <Typography sx={{ color: "#fff", fontWeight: "bold", fontSize: downMd ? '28px' : '33px' }}>{t('Hello, Welcome!')}</Typography>
+              <Typography sx={{ color: "#fff" }}>{t("Don't have an account?")}</Typography>
+              <Button component={RouterLink} to={'/auth/signup'} sx={{ color: "#fff", border: "1px solid #fff", fontSize: "15px", '&:hover': { backgroundColor: "#fff", color: "#66bb6a" }, transition: "all linear 0.2s" }}>{t('Sign Up Now!')}</Button>
+            </Box>
+          </Grid>
+          <Grid size={{ xs: 12, sm: 6, md: 6 }} sx={{ marginBottom: isXs ? "50px" : "0" }}>
+            <Box sx={{ height: "100%", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 5 }}>
+              <Typography component={"h3"} variant='h3' color='success' sx={{ position: "relative", '&::after': { content: `""`, position: "absolute", bottom: "-10px",  left: i18n.language==='en'?0:'30%', backgroundColor: "#66bb6a", width: "70%", height: "3px", borderRadius: "5px" } }}>{t('Login')}</Typography>
+              <Box component={"form"} onSubmit={handleSubmit(submit)} sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2, width: "80%" }}>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2, width: "100%" }}>
+                  <TextField label={t('Email')} type='email' placeholder={`${t('Enter')}${' '}${t('Email')}${' '}${t('Please')}${' !'}`} color='success' variant="outlined" {...register("email")} error={errors.email} helperText={t(errors.email?.message)} />
+                  <TextField label={t('Password')} type='password' placeholder={`${t('Enter')}${' '}${t('Password')}${' '}${t('Please')}${' !'}`} color='success' variant="outlined" {...register("password")} error={errors.password} helperText={t(errors.password?.message)} />
+                  <Link component={RouterLink} to="/auth/sendcode" underline='none' color='success'>{t('Forget')}{(' ')}{t('Password')}{t('?')}</Link>
+                  <Button type='submit' variant="contained" sx={{ fontSize: '16px', color:"#fff", backgroundColor:"#66bb6a" }} disabled={isSubmitting}>{isSubmitting ? <CircularProgress color='#80b501'/> : t('Login')}</Button>
+                </Box>
+              </Box>
+            </Box>
+          </Grid>
         </Box>
-      </Box>
-      <Box sx={{width:"50%", height:"100%", backgroundImage:`url(${bgColor}),linear-gradient(to left , green ,White)`, backgroundRepeat:"no-repeat", backgroundSize:"contain", backgroundPosition:"center"}}></Box>
+      </Grid>
     </Box>
   </>
 }
@@ -64,20 +92,20 @@ export default Login
 // بعد أن يقوم المستخدم أو العميل بتسجيل دخوله للموقع
 // وأراد تنفيذ طلب معين يختص بشراء منتج معين فإنه سيتم إرسال ذلك الطلب
 // من المتصفح للسيرفر عبر بروتوكول اسمه HTTP
-// ولكن دون تحديد هوية صاحب الطلب أي عندما يقوم السيرفر بالرد على ذلك الطلب 
-// لن يعرف صاحب ذلك الطلب وبالتالي لن يصل الرد لصاحب الطلب 
-// إلا في حالة تم إرفاق هوية صاحب الطلب مع الطلب نفسه وإرسالهم للسيرفر عندها سيتم فتح اتصال لحظي 
+// ولكن دون تحديد هوية صاحب الطلب أي عندما يقوم السيرفر بالرد على ذلك الطلب
+// لن يعرف صاحب ذلك الطلب وبالتالي لن يصل الرد لصاحب الطلب
+// إلا في حالة تم إرفاق هوية صاحب الطلب مع الطلب نفسه وإرسالهم للسيرفر عندها سيتم فتح اتصال لحظي
 // بين متصفح صاحب الطلب والسيرفر ليقوم البروتوكول HTTP
-// بتوصيل ذلك الطلب مع هوية صاحبه للسيرفر وتوصيل 
+// بتوصيل ذلك الطلب مع هوية صاحبه للسيرفر وتوصيل
 // الرد على ذلك الطلب من السيرفر لمتصفح صاحب الطلب مباشرة و بعد ذلك سيتم انهاء واغلاق الاتصال
 // و بالتالي في حالة لم تكن هوية ذلك العميل مخزنة على متصفحه فلن يستطيع السيرفر مجددا
 // تحديد هويته عند قيامه بطلب اخر
 // ولذلك يجب تخزين والاحتفاظ بهوية العميل في متصفحه
-// ليتسنى للبروتوكول HTTP 
+// ليتسنى للبروتوكول HTTP
 // إرفاق هويته مع الطلب الذي قام به في كل مرة يقوم بها ذلك العميل بتنفيذ أي طلب
 // ليتسنى للسيرفر تحديد هويته وإرسال الرد على ذلك الطلب إليه مباشرة
 // وهنا يأتي دور accessToken
-// والذي يمثل هوية لصاحب الطلب حيث يقوم البروتوكول HTTP 
+// والذي يمثل هوية لصاحب الطلب حيث يقوم البروتوكول HTTP
 // بإرفاق هذا accessToken
 // مع الطلب الذي قام العميل به
 // في كل مرة يقوم بها ذلك العميل بتنفيذ أي طلب
@@ -87,14 +115,14 @@ export default Login
 //    وذلك ليتسنى للفرونت اند تخزينه في متصفح العميل وذلك لكي يتسنى للبروتوكول HTTP
 //    إرفاقه مع الطلب الذي قام به ذلك العميل وإرسالهم للسيرفر
 //    وذلك لكي يتسنى للسيرفر تحديد هويته وإرسال الرد على ذلك الطلب إليه مباشرة
-// 2- يكون مشفر ولكنه يمكن فك تشفيره بسهولة فلا ينصح بوضع معلومات حساسة بداخله 
+// 2- يكون مشفر ولكنه يمكن فك تشفيره بسهولة فلا ينصح بوضع معلومات حساسة بداخله
 //    كمعلومات خاصة بالحسابات البنكية أو ما شابه ذلك
 //    ومن أحد المواقع التي تقوم بفك تشفير هذا accessToken
 //    هو موقع https://www.jwt.io/
 //    وذلك من خلال نسخ قيمة ذلك accessToken
 //    ولصقها في هذا الموقع فستظهر لنا المعلومات التي يحتويها هذا accessToken
 // ولكي نقوم بتخزين هوية العميل أي accessToken
-// الخاصة بالعميل في المتصفح الخاص به يتم ذلك عن طريق 
+// الخاصة بالعميل في المتصفح الخاص به يتم ذلك عن طريق
 // تخزينها في localStorage
 // كما في الكود التالي
 // localStorage.setItem('accessToken',response.data.accessToken);
@@ -102,12 +130,12 @@ export default Login
 // في متصفح المستخدم أو العميل يعني أنه مسجل الدخول على ذلك الموقع حاليا
 
 // الفرق بين accessToken , refreshToken
-// هو أن accessToken 
-// تخزن في متصفح العميل 
-// و تكون مدته الزمنية قصيرة بحسب طبيعة الموقع وذلك لكي لا يتسبب في مشاكل أمنية 
+// هو أن accessToken
+// تخزن في متصفح العميل
+// و تكون مدته الزمنية قصيرة بحسب طبيعة الموقع وذلك لكي لا يتسبب في مشاكل أمنية
 // فمثلا لو كانت المدة الزمنية لل accessToken
-// كبيرة بالنسبة لطبيعة المشروع وتم اختراق هذا accessToken 
-// الخاص بعميل معين فإن هذا المخترق سيستطيع القيام بأي طلب يريده على ذلك الموقع وي كأنه 
+// كبيرة بالنسبة لطبيعة المشروع وتم اختراق هذا accessToken
+// الخاص بعميل معين فإن هذا المخترق سيستطيع القيام بأي طلب يريده على ذلك الموقع وي كأنه
 // العميل الأصلي صاحب هذا accessToken
 // فلذلك يجب أن تكون المدة الزمنية لل accessToken قصيرة
 // ولكن هناك مشكلة ستحدث في هذه الحالة وهو أنه عندما تنتهي المدة الزمنية لذلك ال accessToken
@@ -116,19 +144,19 @@ export default Login
 // وهكذا في كل مرة تنتهي المدة الزمنية لل accessToken الخاصة بذلك العميل
 // وهذا أمر متعب وغير منطقي فهنا يأتي دور refreshToken
 // حيث يخزن ال refreshToken
-// في الداتا بيز وليس في متصفح العميل 
+// في الداتا بيز وليس في متصفح العميل
 // و تكون مدته الزمنية أطول بكثير من مدة accessToken
 // والهدف الأساسي منه هو أن يقوم بإنشاء accessToken
 // جديد للعميل عندما تنتهي فترة صلاحية او المدة الزمنية الخاصة بذلك accessToken الخاص بذلك العميل
 // أي تجديد ال accessToken الخاص بذلك العميل
 // قبل أن يتم تسجيل خروجه من الموقع
 // مما يتيح للعميل إكمال طلباته على الموقع دون أن يقوم بإعادة تسجيل دخوله إليه ودون أن يفقد هويته
-// طبعا كلا accessToken , refreshToken 
+// طبعا كلا accessToken , refreshToken
 // يقوم الباك اند بإنشائهم
 
 // وهل يوجد بروتوكول أفضل من بروتوكول HTTP
 // لإرسال الطلبات ؟
-// نعم يوجد بروتوكول اخر باسم WebSocket 
+// نعم يوجد بروتوكول اخر باسم WebSocket
 // هو بروتوكول اتصال يُستخدم لإنشاء اتصال دائم و مفتوح
 // بين المتصفح والسيرفر
 // بحيث يسمح بتبادل البيانات بشكل فوري و دائم (Real-Time)
@@ -144,16 +172,16 @@ export default Login
 // في الاتجاهين دون الحاجة لإعادة إرسال الطلب وهوية صاحبه في كل مرة
 // وهذا هو الفرق الجوهري بين البروتوكول HTTP , WebSocket
 // فآلية عمل البروتوكول WebSocket
-// هي في انه يسلك سلوك البروتوكول HTTP 
-// في البداية أي في أول طلب يقوم بتنفيذه العميل ومن ثم سيتم ترقية 
+// هي في انه يسلك سلوك البروتوكول HTTP
+// في البداية أي في أول طلب يقوم بتنفيذه العميل ومن ثم سيتم ترقية
 // الاتصال من HTTP
 // ل WebSocket
 // فيصبح الاتصال دائم ومفتوح وفوري وثنائي الاتجاهات وسريع جدا
 // وبعد ذلك يستطيع السيرفر إرسال بيانات للعميل بدون أن يقوم العميل بإعادة إرسال الطلب والعميل يستطيع الإرسال في أي وقت
 // أي أن البروتوكول WebSocket
-// يعتمد على البروتوكول HTTP 
+// يعتمد على البروتوكول HTTP
 // وهما مكملان لبعضهما البعض
-// فاستخدامات البروتوكول HTTP 
+// فاستخدامات البروتوكول HTTP
 // مثل جلب بيانات عادية  أو تطبيق CRUD (Create, Read, Update, Delete) عادي
 // اما استخدامات البروتوكول WebSocket
 // مثل تطبيقات الدرشة و المواقع التي بها إشعارات فورية و لوحات التحكم و مواقع التسوق الإلكتروني
