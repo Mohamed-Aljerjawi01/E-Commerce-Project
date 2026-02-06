@@ -33,14 +33,12 @@
     align-items: center;
     border-radius: 50%;
     z-index: 10;
-    outline: 3px solid #fff;
-    outline-offset: 5px ;
     cursor: pointer;
     color: #80b501;
 }
 .prev{
-    left: -30px;
+    left: -2%;
 }
 .next{
-    right: -30px;
+    right: -2%;
 }

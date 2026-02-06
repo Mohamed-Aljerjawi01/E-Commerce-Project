@@ -82,7 +82,7 @@ function ComponentTwo() {
   const downMd = useMediaQuery(theme.breakpoints.down('md'));
   const downSm = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const { data: categories, isLoading: isLoadingCategory } = useCategoriesQuery();
+  const { data: categories, isLoading: isLoadingCategory, isError: isErrorCategory } = useCategoriesQuery();
   // console.log(categories);
 
   const { t } = useTranslation();
@@ -90,7 +90,7 @@ function ComponentTwo() {
   return <>
     <Container sx={{ marginTop: "100px", marginBottom: "100px" }} maxWidth={isXs ? 'xs' : 'lg'}>
       <Box sx={{ display: "flex", flexDirection: downMd ? 'column' : 'row', justifyContent: "space-between", alignItems: downMd ? 'flex-start' : 'center', marginBottom: "30px", gap: 2 }}>
-        <Typography component={"h6"} variant='h6' sx={{ fontSize: "20px", display: "flex", alignItems: "center", gap: 1 }}>{isLoading ? <CircularProgress sx={{ color: "#80b501" }} /> : data.response.data.length + products.length} {t('Item On List')}</Typography>
+        <Typography component={"h6"} variant='h6' sx={{ fontSize: "20px", display: "flex", alignItems: "center", gap: 1 }}>{isLoading ? <CircularProgress sx={{ color: "#80b501" }} /> : isError ? <Typography sx={{ color: "red", fontWeight: "bold", textAlign: "center" }}>?</Typography> : data.response.data.length + products.length} {t('Item On List')}</Typography>
         <Box sx={{ display: "flex", flexDirection: downSm ? 'column' : 'row', justifyContent: "space-between", alignItems: downSm ? 'flex-start' : 'center', gap: 2 }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <Button type='submit' form="filterForm" sx={{ backgroundColor: "#80b501", display: "flex", alignItems: "center", gap: "5px", color: "#fff", height: '100%' }}>
@@ -106,6 +106,7 @@ function ComponentTwo() {
             <select {...register('categoryId')} style={{ height: "33px", width: "100%", outline: "0" }}>
               <option disabled selected>{t('Category Name')}</option>
               {isLoadingCategory ? null :
+                isErrorCategory ? <Typography></Typography> :
                 categories.response.map(function (category) {
                   return <option value={category.id}>{category.name}</option>
                 })}

@@ -47,7 +47,7 @@ function Feedback() {
         <Box sx={{ backgroundColor: mode==="dark"?"#191919":"#f0f0f0", padding: "100px 0" }}>
             <Container maxWidth={isXs ? 'xs' : isSm ? 'sm' : isMd ? 'md' : 'lg'}>
                 <Typography sx={{ color: "#80b501", padding: "2px 15px", backgroundColor: "rgba(129, 184, 0, 0.15)", width: "fit-content", marginBottom: "15px", fontWeight: "500" }}>{t('Testimonials')}</Typography>
-                <Box sx={{ display: "flex", alignItems: 'center', justifyContent: "space-between", marginBottom: "30px" }}>
+                <Box sx={{ display: "flex", flexDirection: isXs ? "column" : "row", gap:2, justifyContent: "space-between", marginBottom: "30px" }}>
                     <Typography component={"h3"} variant='h3'>{t('Client Feedback')}</Typography>
                     <Box sx={{ display: "flex", alignItems: "center", gap: "20px", direction:'ltr'}}>
                         <Box className={style.prev} sx={{ "&:hover": { backgroundColor: "#80b501", color: "#fff", transition: "all linear 0.3s" } }}><KeyboardDoubleArrowLeftIcon /></Box>

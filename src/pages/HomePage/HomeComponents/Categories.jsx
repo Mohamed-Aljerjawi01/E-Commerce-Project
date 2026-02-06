@@ -73,7 +73,7 @@ function Catagories() {
               {data.response.map((category) => {
                 return <Grid size={{ xs: 12, sx: 6, md: 4, lg: 3 }} key={category.id}>
                   <SwiperSlide>
-                    <Box sx={{ display: "flex", flexDirection: "column", textAlign: "center", alignItems: "center", justifyContent: "center", border: "1px solid  rgba(128, 128, 128, 0.2)", padding: "30px", '&:hover': { border: "1px solid #80b501" }, transition: "all linear 0.2s" }}>
+                    <Box sx={{ display: "flex", margin: isXs ? "0 5%" : "0", flexDirection: "column", textAlign: "center", alignItems: "center", justifyContent: "center", border: "1px solid  rgba(128, 128, 128, 0.2)", padding: "30px", '&:hover': { border: "1px solid #80b501" }, transition: "all linear 0.2s" }}>
                       <Card sx={{ border: "1px dashed green", padding: "13px", borderRadius: "50%", marginBottom: "10px", backgroundColor: " rgba(128, 128, 128,0.1)", width: "50px", height: "50px" }}>
                         <CardMedia
                           component="img"

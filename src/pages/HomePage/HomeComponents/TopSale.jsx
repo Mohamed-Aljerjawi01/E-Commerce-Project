@@ -105,7 +105,7 @@ function TopSale() {
                                     return <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={product.productId} >
                                         <SwiperSlide onMouseOver={function () { setIsHover(true); setProductId(product.productId) }} onMouseOut={function () { setIsHover(false) }}>
                                             <Box sx={{
-                                                backgroundColor: mode==='dark'?'#191919':"#f0f0f0", textAlign: "center", padding: "60px 0", position: "relative",
+                                                backgroundColor: mode==='dark'?'#191919':"#f0f0f0", textAlign: "center", padding: "60px 0", position: "relative", margin: isXs ? "0 5%" : "0",
                                                 '&::after': {
                                                     content: typeof product.offer == 'number' ? `"${product.offer}%${t('Off')}"` : `"${product.offer}"`,
                                                     display: product.offer ? "block" : "none",
