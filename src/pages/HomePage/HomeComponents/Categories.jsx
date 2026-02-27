@@ -31,10 +31,10 @@ function Catagories() {
     slidesPerView = 4
   }
   else if (isMd) {
-    slidesPerView = 4
+    slidesPerView = 3
   }
   else if (isSm) {
-    slidesPerView = 3
+    slidesPerView = 2
   }
 
   const mode = useAuthStore(state=> state.mode);
