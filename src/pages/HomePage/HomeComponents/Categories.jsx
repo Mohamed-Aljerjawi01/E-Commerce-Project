@@ -28,7 +28,7 @@ function Catagories() {
   const isSm = useMediaQuery(theme.breakpoints.only('sm'));
   let slidesPerView = 1;
   if (isLg) {
-    slidesPerView = 5
+    slidesPerView = 4
   }
   else if (isMd) {
     slidesPerView = 4
@@ -70,7 +70,7 @@ function Catagories() {
               key={isRTL ? "rtl" : "ltr"}   // ⭐ مهم جدًا
               dir={isRTL ? "rtl" : "ltr"}
             >
-              {data.response.map((category) => {
+              {data.response.data.map((category) => {
                 return <Grid size={{ xs: 12, sx: 6, md: 4, lg: 3 }} key={category.id}>
                   <SwiperSlide>
                     <Box sx={{ display: "flex", margin: isXs ? "0 5%" : "0", flexDirection: "column", textAlign: "center", alignItems: "center", justifyContent: "center", border: "1px solid  rgba(128, 128, 128, 0.2)", padding: "30px", '&:hover': { border: "1px solid #80b501" }, transition: "all linear 0.2s" }}>

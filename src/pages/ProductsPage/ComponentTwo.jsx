@@ -56,7 +56,7 @@ function ComponentTwo() {
   console.log(data);
 
   const { limit, page, increasePage, decreasePage } = useAuthStore();
-  console.log(page);
+  // console.log(page);
   const totalCount = 3;
   const [numberOfPages, setNumberOfPages] = useState(Math.ceil(totalCount / limit));
   // console.log(numberOfPages);
@@ -107,7 +107,7 @@ function ComponentTwo() {
               <option disabled selected>{t('Category Name')}</option>
               {isLoadingCategory ? null :
                 isErrorCategory ? <Typography></Typography> :
-                categories.response.map(function (category) {
+                categories.response.data.map(function (category) {
                   return <option value={category.id}>{category.name}</option>
                 })}
             </select>

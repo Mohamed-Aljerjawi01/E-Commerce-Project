@@ -444,6 +444,7 @@ const queryClient = useQueryClient();
             localStorage.setItem("countCart", countCart - countCart);
 
             queryClient.invalidateQueries({queryKey:['carts', i18n.language]});
+            queryClient.invalidateQueries({queryKey:['profile', i18n.language]});
 
             if(response.data.url){
                 window.location.href = 'https://checkout.stripe.com/c/pay/cs_test_a1jT4bZhocKdpYVvlv0OBecWjM2g4lPUzwG2dMlTXuX3NejkabHu5tgGKg#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdkdWxOYHwnPyd1blpxYHZxWjA0VmxSMWdGYXw2cWlCX1MxbU1zZ0JLbnRIZk5UdTF2ZjNzalVjU0BsM2phMUxOQl9NN3RGfH9vbFdGSzJ%2FdERkXzR%2FSW1xNmJhaHdTMWhKSnJQd2ZndUZINTVIPGZGSlZBUScpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjY2NjY2MnKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSdga2RnaWBVaWRmYG1qaWFgd3YnP3F3cGB4JSUl'

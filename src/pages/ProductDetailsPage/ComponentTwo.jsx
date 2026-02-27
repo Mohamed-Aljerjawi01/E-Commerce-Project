@@ -141,7 +141,7 @@ function ComponentTwo({ id }) {
                     </Box>
                     <Box>
                       <Typography sx={{
-                        maxHeight: "150px", textAlign: "justify", fontSize: "18px", pr: i18n.language == "en" ? "10px" : '0px', pl: i18n.language == "ar" ? "10px" : '0px'
+                        textAlign: "justify", fontSize: "18px", pr: i18n.language == "en" ? "10px" : '0px', pl: i18n.language == "ar" ? "10px" : '0px'
                       }}>
                         {t('A versatile kitchen appliance designed for speed, convenience, and safety. Features powerful heating, smart auto shut-off, and durable materials for everyday use. Ideal for preparing hot drinks or healthy meals efficiently with minimal effort.')}
                       </Typography>

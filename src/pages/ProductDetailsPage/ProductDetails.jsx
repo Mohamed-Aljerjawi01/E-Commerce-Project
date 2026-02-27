@@ -24,7 +24,7 @@ function ProductDetails() {
         <Box sx={{display:'flex', justifyContent:"center", alignItems:"center", gap:2}}>
             <Link component={RouterLink} to={"/home"} color='#fff' underline='none'>{t('Home')}</Link>
             <Typography component={"span"} color='#fff' sx={{width:'5px', height:"5px", backgroundColor:"#fff", borderRadius:"50%"}}></Typography>
-            <Typography color='#fff'>{t('Product Details')}</Typography>
+            <Typography color='#fff' sx={{whiteSpace:"nowrap"}}>{t('Product Details')}</Typography>
         </Box>
       </Box>
     </ComponentOne>
