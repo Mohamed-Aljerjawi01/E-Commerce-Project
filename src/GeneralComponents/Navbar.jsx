@@ -48,7 +48,7 @@ export default function Navbar() {
   const [nameIcon, setNameIcon] = useState('');
 
   return <>
-    <AppBar position='sticky' sx={{ zIndex:12, boxShadow: "none", height: "80px", justifyContent: "center", borderBottom:`2px solid ${mode==='dark'?"":"gray"}` }}>
+    <AppBar position='sticky' sx={{ zIndex:12, boxShadow: "0px 0px 5px gray", height: "80px", justifyContent: "center" }}>
       <Toolbar sx={{ height: "100%", justifyContent: "space-between", backgroundColor: "#fff", position: "relative" }}>
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }} >
           <Box>

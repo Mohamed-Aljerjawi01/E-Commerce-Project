@@ -80,8 +80,8 @@ function TopSale() {
                 </Box>
                 <Box>
                     <Grid container spacing={3} position={"relative"}>
-                        <Box className={style.prev} sx={{ '&:hover': { backgroundColor: "#80b501", color: "#fff" } }}><KeyboardDoubleArrowLeftIcon /></Box>
-                        <Box className={style.next} sx={{ '&:hover': { backgroundColor: "#80b501", color: "#fff" } }}><KeyboardDoubleArrowRightIcon /></Box>
+                        <Box className={style.prev} sx={{ '&:hover': { backgroundColor: "#80b501", color: "#fff" }, transition:'all 0.3s linear'}}><KeyboardDoubleArrowLeftIcon /></Box>
+                        <Box className={style.next} sx={{ '&:hover': { backgroundColor: "#80b501", color: "#fff" }, transition:'all 0.3s linear'}}><KeyboardDoubleArrowRightIcon /></Box>
                         <Swiper
                             // install Swiper modules
                             modules={[Autoplay, Navigation]}
